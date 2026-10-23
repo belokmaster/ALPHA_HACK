@@ -1,0 +1,92 @@
+{
+  "format_version": "g1-human-review-1",
+  "source_revision": "3900cf15f370075e099f3694cb6ac60a2800b83c",
+  "analysis_id": "8a738788-05dc-4a55-a69b-586871356a1e",
+  "followup_id": "4d2ba23c-c811-4ec8-a215-f3d5823e51cd",
+  "files": {
+    "analysis": {
+      "path": "artifacts/integration/review-inputs/artifacts/integration/g1-analysis.json",
+      "sha256": "9624ae6aef3dcd5c20b6ffbf8f29310ed08456e328c61531571f4a9f664cda50"
+    },
+    "followup": {
+      "path": "artifacts/integration/review-inputs/artifacts/integration/g1-followup.json",
+      "sha256": "46e9c344083b358e2eaa3999ce4caed80d648be2b71916365d3e3155a8562474"
+    },
+    "snapshot": {
+      "path": "artifacts/integration/review-inputs/artifacts/integration/g1-review-snapshot.json",
+      "sha256": "9b6d6c7b8aea4956a26e8664a279ef194a71ac2620ff595c7ad1172ead1fdd41"
+    },
+    "corpus_config": {
+      "path": "artifacts/integration/review-inputs/config/bank_corpus.json",
+      "sha256": "69ce6a6a392125042969eb318c120b1c89ecb9cdd40c547eae552f48b2a36717"
+    },
+    "qa": {
+      "path": "artifacts/integration/review-inputs/docs/references/Вопросы с вебинара _ Новостная лента.md",
+      "sha256": "432723aa4c364995f47156c04223727746f05ed2cfa6d7ecfe052cef03c50992"
+    }
+  },
+  "pdfs": {
+    "pdf_84899553fadf3e49abac7074_a7b18335c2579cd0": {
+      "path": "artifacts/integration/review-inputs/raw/pdf/ALFA-macro_stat1H26.pdf",
+      "sha256": "84899553fadf3e49abac7074c7b7d2afc2fa5c70b7fde0bf4c3eabe3d7402266"
+    },
+    "pdf_92a96805f2b720f76bd0c52d_a7b18335c2579cd0": {
+      "path": "artifacts/integration/review-inputs/raw/pdf/ALFA-Macro_Insights-Policy_Rate_11Sep.pdf",
+      "sha256": "92a96805f2b720f76bd0c52d2491044812b38401ab62d0f4a9157b4ca81c49bb"
+    }
+  },
+  "ocr": {
+    "pdf_84899553fadf3e49abac7074_a7b18335c2579cd0": {
+      "path": "artifacts/integration/review-inputs/artifacts/ocr/84899553fadf3e49abac7074c7b7d2afc2fa5c70b7fde0bf4c3eabe3d7402266-cef0dcb9c1009e9a.json",
+      "sha256": "6a6bbd8214ae91c0be4fab6207d7f629108b1cf686dd8240440910e01605c97d"
+    },
+    "pdf_92a96805f2b720f76bd0c52d_a7b18335c2579cd0": {
+      "path": "artifacts/integration/review-inputs/artifacts/ocr/92a96805f2b720f76bd0c52d2491044812b38401ab62d0f4a9157b4ca81c49bb-cef0dcb9c1009e9a.json",
+      "sha256": "36e36b50662ff5fe9c1e46ca6ba55694af9e6e73613414fbf631be5c4f2629bf"
+    }
+  },
+  "company_csv": {
+    "path": "artifacts/integration/review-inputs/raw/csv/df_Uid_data_hack.csv",
+    "sha256": "cb48983806ce7ca0ae045a40c9627ccbe47cc72bfb54058db04df2386da4a983"
+  },
+  "news": {
+    "cbr-press": {
+      "json": {
+        "path": "artifacts/integration/review-inputs/artifacts/integration/news/cbr-press.json",
+        "sha256": "8b979bcb7d693403750fff2918ce38def6abafe74359f54532416ba2044989de"
+      },
+      "xml": {
+        "path": "artifacts/integration/review-inputs/artifacts/integration/news/cbr-press.xml",
+        "sha256": "4fdcef5f6a669c5cd1b92ac3893d8351e0baf897036165806d59c351d4df1603"
+      },
+      "html": {
+        "path": "artifacts/integration/review-inputs/artifacts/integration/news/cbr-press.html",
+        "sha256": "13886df063f3cb4d93aa60f36b6618eb679b8b1653b3e87b1673875d5db893ec"
+      }
+    },
+    "rosstat": {
+      "json": {
+        "path": "artifacts/integration/review-inputs/artifacts/integration/news/rosstat.json",
+        "sha256": "3eacadea647f61424f27a20c676d848235cc0b908c47ba42906e7a25a98ad5d9"
+      },
+      "xml": {
+        "path": "artifacts/integration/review-inputs/artifacts/integration/news/rosstat.xml",
+        "sha256": "21dae8ed4afb4aade437dd1d11af572c8ff8f344b7e97a13e6437c17a090fe51"
+      },
+      "html": {
+        "path": "artifacts/integration/review-inputs/artifacts/integration/news/rosstat.html",
+        "sha256": "2c138fe0068a8feeb1753625f51c4c985a4047bf5aa0b960ca6bca8412a59cc6"
+      }
+    }
+  },
+  "prior_packet": {
+    "sha256": "ff5cc43f54e7016e49d650ebade13c3231398953a1b88794f0c50f4c0ec94573",
+    "members": {
+      "ALFA-Macro_Insights-Policy_Rate_11Sep.pdf": "92a96805f2b720f76bd0c52d2491044812b38401ab62d0f4a9157b4ca81c49bb",
+      "fragments.json": "c23d513a56675b0a91e91fc2b52d8b0f4ce0fd16c5577f534c9fa7a6e95dd65e",
+      "policy-rate-page-1.png": "35d6e1013eeb73cdf7d0b7439adf3c12f2c668de75d1f5a0a06b07177b5bdaa9",
+      "MANUAL-REVIEW.md": "5a9bc6e37c99df8233eaab01232dffde66a88a10835710d67a79713391448c07"
+    },
+    "finding": "Only one PDF/page, six background spans; no complete saved analysis, matching followup, company row, second PDF or news snapshots"
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "tariffs": [
+    {
+      "model_id": "google/gemma-4-26b-a4b-it",
+      "version": "organizers-owner-confirmed-2026-10-22",
+      "input_rub_per_million": "4.48",
+      "output_rub_per_million": "23",
+      "verified": true,
+      "multiplier": "2.23"
+    },
+    {
+      "model_id": "z-ai/glm-5.3-flash",
+      "version": "organizers-owner-confirmed-2026-10-22",
+      "input_rub_per_million": "5.10",
+      "output_rub_per_million": "17",
+      "verified": true,
+      "multiplier": "2.23"
+    },
+    {
+      "model_id": "qwen/qwen3.6-35b-a3b",
+      "version": "organizers-owner-confirmed-2026-10-22",
+      "input_rub_per_million": "5.33",
+      "output_rub_per_million": "74",
+      "verified": true,
+      "multiplier": "2.23"
+    },
+    {
+      "model_id": "deepseek/deepseek-v4.1-flash",
+      "version": "organizers-owner-confirmed-2026-10-22",
+      "input_rub_per_million": "10",
+      "output_rub_per_million": "21",
+      "verified": true,
+      "multiplier": "2.23"
+    },
+    {
+      "model_id": "qwen/qwen3-vl-30b-a3b-instruct",
+      "version": "organizers-owner-confirmed-2026-10-22",
+      "input_rub_per_million": "14.30",
+      "output_rub_per_million": "57.10",
+      "verified": true,
+      "multiplier": "2.23"
+    },
+    {
+      "model_id": "moonshotai/kimi-k2.6",
+      "version": "organizers-owner-confirmed-2026-10-22",
+      "input_rub_per_million": "51",
+      "output_rub_per_million": "270",
+      "verified": true,
+      "multiplier": "2.23"
+    }
+  ]
+}

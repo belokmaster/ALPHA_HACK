@@ -1,0 +1,19 @@
+{
+  "version": "source-events-1",
+  "events": [
+    {
+      "id": "case-bank-rate-outlook-2027",
+      "filename": "ALFA-Macro_Insights-Policy_Rate_11Sep.pdf",
+      "span": "agent_4",
+      "title": "Архив: прогноз банка по ключевой ставке на конец 2027 года",
+      "topics": ["rates"]
+    },
+    {
+      "id": "case-fuel-prices-august",
+      "filename": "Inflation_tracker_02.pdf",
+      "span": "agent_8",
+      "title": "Архив: динамика цен на бензин за 25–31 августа в обзоре от 2 сентября",
+      "topics": ["fuel", "inflation"]
+    }
+  ]
+}

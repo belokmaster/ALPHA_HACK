@@ -1,0 +1,12 @@
+{
+  "encoder": "intfloat/multilingual-e5-small",
+  "revision": "614241f622f53c4eeff9890bdc4f31cfecc418b3",
+  "local_only": true,
+  "download_on_startup": false,
+  "model_manifest": "models.lock",
+  "fallback": "postgresql_fts",
+  "rrf_k": 60,
+  "candidates_per_channel": 20,
+  "max_chunks_per_page": 3,
+  "hnsw_ef_search": 40
+}

@@ -1,0 +1,56 @@
+{
+  "version": "2.0",
+  "authorship": "agent analysis checked against local CSV and rendered PDF pages; not independent human annotation",
+  "independent_human_review": "pending",
+  "temporal_mode": "snapshot_demo",
+  "availability": "unknown for all supplied PDFs; not a historical backtest",
+  "csv_row_numbering": "1-based record including header (first data record=2)",
+  "cases": [
+    {
+      "id": "G1",
+      "profile_refs": [{"file":"df_Uid_data_hack.csv","row":3972,"expect":{"SYNTHETIC_U":"U_15728","MAINOKVED_CODE":"52.29","CL_PRODUCT_LOA_MARK":"1.0","CL_PRODUCT_LEA_MARK":"1.0"}}],
+      "pdf_ref": {"file":"ALFA-Macro_Insights-Policy_Rate_11Sep.pdf","page":1},
+      "six_questions": {
+        "event": "Ставка сохранена 14%; это не повышение ставки.",
+        "relevance": "Наличие LOA/LEA подтверждено, но не тип ставки/сумма/дата переоценки долга.",
+        "consequences": "Гипотеза: при новом заимствовании или плавающей ставке ожидание быстрого удешевления денег слабее. Фиксированная ставка/отсутствие рефинансирования могут сделать ближайший эффект небольшим.",
+        "action": "CFO: какая часть договоров имеет плавающую ставку и когда пересмотр? CEO: какие проекты зависят от нового финансирования?",
+        "bank": "На с.1 банк меняет прогноз конца 2026 с 13,5 до 14,0%; конец 2027 — 12%. Не среднегодовые значения и не ставка клиента.",
+        "basis": "CSV профиль + PDF с.1; вывод о чувствительности условный, происхождение model/hypothesis. Доступность PDF на историческую дату не доказана."
+      },
+      "counterfactual": {"file":"df_Uid_data_hack.csv","row":3648,"expect":{"SYNTHETIC_U":"U_11496","MAINOKVED_CODE":"52.29","CL_PRODUCT_LOA_MARK":"0.0","CL_PRODUCT_LEA_MARK":"1.0"},"effect":"Кредитная экспозиция не подтверждена; вопрос о лизинге/новом финансировании, без выдуманного изменения знака эффекта."},
+      "role_invariants": ["факты и цитаты", "неизвестные договорные условия", "ACL"],
+      "forbidden": ["рост платежа по кредиту", "численный убыток", "ставка повышена"]
+    },
+    {
+      "id":"G2",
+      "profile_refs":[{"file":"df_Uid_data_hack.csv","row":1563,"expect":{"SYNTHETIC_U":"U_5639","MAINOKVED_CODE":"46.90"}},{"file":"df_Uid_data_hack.csv","row":6163,"expect":{"SYNTHETIC_U":"U_25605","MAINOKVED_CODE":"52.29"}}],
+      "payment_refs":[{"file":"df_Uid_payment_hack.csv","row":10903,"expect":{"PAYER":"U_5639","BENEFICIARY":"U_25605","PAY_AMT":"3167679000.0","PAY_CNT":"117"}},{"file":"df_Uid_payment_hack.csv","row":194833,"expect":{"PAYER":"U_25605","BENEFICIARY":"U_5639","PAY_AMT":"2665938000.0","PAY_CNT":"54"}}],
+      "payment_period":{"start":"2026-01-01","end":null,"available_at":null},
+      "pdf_ref":{"file":"Inflation_tracker_02.pdf","page":1},
+      "six_questions":{
+        "event":"Бензин +0,91% н/н после +0,89%; дизель почти без изменений за 25–31 августа.",
+        "relevance":"Есть наблюдаемая двунаправленная платёжная связь, не доказан договор поставки/перевозки.",
+        "consequences":"Гипотеза: при оплате бензинозависимых перевозок возможна переоценка тарифа. Альтернативы: заём/внутригрупповой расчёт, дизель, фиксированный тариф или хеджирование.",
+        "action":"Что оплачивается контрагенту, какой транспорт и как пересматривается тариф?",
+        "bank":"Правый столбец с.1: новая волна роста цен топлива ещё не исчерпана — мнение банка, а не факт о расходах клиента.",
+        "basis":"CSV rows и PDF с.1. Нет знаменателя для доли расходов и известного конца окна; +0,91% не умножается на PAY_AMT. Профиль соседа раскрывается только при его grant."
+      },
+      "forbidden":["это поставщик", "логистические расходы +0,91%", "процент расходной базы из платёжной суммы"]
+    },
+    {
+      "id":"G3",
+      "profile_refs":[{"file":"df_Uid_data_hack.csv","row":43721,"expect":{"SYNTHETIC_U":"U_199017","MAINOKVED_CODE":"46.72","FTS_COUNTRY_NAME":"АЛЖИР, ЛИВАН, ЕГИПЕТ"}}],
+      "pdf_ref":{"file":"Gold_digest_August26.pdf","pages":[2,3,6,7]},
+      "six_questions":{
+        "event":"Gold digest содержит рынок и сценарии золота. Заголовок «Август» не доказывает доступность в августе; с.6 использует данные на 07.09.",
+        "relevance":"Оптовая торговля металлами и страны ФТС не доказывают золотой ассортимент, направление экспозиции или валюту договора.",
+        "consequences":"Персональный знак/численный эффект неопределим. Только условные варианты для запасов/закупок/продаж после уточнения.",
+        "action":"Есть ли золото в ассортименте, запасы и сторона позиции?",
+        "bank":"В snapshot допустимо процитировать банк с маркировкой прогноза/условий. В strict_as_of материал исключён, bank_evidence_status=not_found.",
+        "basis":"CSV профиль и page refs; происхождение bank_analysis отдельно от model hypothesis. Статус insufficient_evidence для персонального эффекта."
+      },
+      "forbidden":["компания торгует золотом", "выгода от роста золота доказана", "August available_at"]
+    }
+  ]
+}

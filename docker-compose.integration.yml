@@ -1,0 +1,85 @@
+# Isolated technical integration; no development volumes or provider keys.
+name: alfa-g1-integration
+x-env: &env
+  DATABASE_URL: postgresql+asyncpg://alfa:alfa_test@db:5432/alfa_test
+  TEST_DATABASE_URL: postgresql+asyncpg://alfa:alfa_test@db:5432/alfa_test
+  DEMO_MODE: 'true'
+  APP_SECRET: integration-isolated-secret-never-use-in-production
+  APP_ORIGIN: http://127.0.0.1:${INTEGRATION_PORT:-18080}
+  LIVE_LLM_ENABLED: 'false'
+  LLM_API_KEY: ''
+  ANALYSIS_MODE: ${ANALYSIS_MODE:-evidence_only}
+  CONTROLLED_LLM_RESPONSE: ${CONTROLLED_LLM_RESPONSE:-ok}
+  TEST_BASE_URL: http://app:8000
+  OMP_NUM_THREADS: '2'
+  MKL_NUM_THREADS: '2'
+  HF_HUB_OFFLINE: '1'
+  TOKENIZERS_PARALLELISM: 'false'
+x-base: &base
+  image: ${INTEGRATION_IMAGE:-alfa-g1:local}
+  build: .
+  environment: *env
+services:
+  db:
+    image: docker.io/pgvector/pgvector:0.8.2-pg17-bookworm
+    environment:
+      POSTGRES_USER: alfa
+      POSTGRES_PASSWORD: alfa_test
+      POSTGRES_DB: alfa_test
+    tmpfs: [/var/lib/postgresql/data]
+    volumes: ['./config/scenario-db-init.sql:/docker-entrypoint-initdb.d/scenarios.sql:ro']
+    security_opt: [label=disable]
+    healthcheck:
+      test: [CMD-SHELL, 'pg_isready -U alfa -d alfa_test']
+      interval: 2s
+      retries: 30
+  migrate:
+    <<: *base
+    command: [alembic, upgrade, head]
+    depends_on:
+      db: {condition: service_healthy}
+  seed:
+    <<: *base
+    command: [python, -m, app.seed]
+    depends_on:
+      migrate: {condition: service_completed_successfully}
+  app:
+    <<: *base
+    ports: ['127.0.0.1:${INTEGRATION_PORT:-18080}:8000']
+    volumes: ['./raw/pdf:/app/raw/pdf:ro']
+    security_opt: [label=disable]
+    depends_on:
+      seed: {condition: service_completed_successfully}
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://localhost:8000/health/ready')"]
+      interval: 2s
+      retries: 30
+  worker:
+    image: alfa-ml:local
+    working_dir: /workspace
+    command: [/app/.venv/bin/python, -m, app.jobs.worker]
+    environment: *env
+    volumes: ['.:/workspace:ro']
+    security_opt: [label=disable]
+    read_only: true
+    tmpfs: [/tmp]
+    depends_on:
+      seed: {condition: service_completed_successfully}
+  prepare:
+    image: alfa-ml:local
+    working_dir: /workspace
+    entrypoint: [/app/.venv/bin/python]
+    environment: *env
+    # The explicit preparation command may write ignored manifests only.
+    user: '0'
+    volumes: ['.:/workspace:ro', '${INTEGRATION_ARTIFACTS_DIR:-./artifacts}:/workspace/artifacts']
+    security_opt: [label=disable]
+    profiles: [tools]
+    depends_on:
+      seed: {condition: service_completed_successfully}
+  tests:
+    <<: *base
+    command: [pytest, tests/integration, tests/e2e, -q]
+    profiles: [test]
+    depends_on:
+      app: {condition: service_healthy}

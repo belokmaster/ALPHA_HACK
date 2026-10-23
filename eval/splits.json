@@ -1,0 +1,25 @@
+{
+  "version": "1.2",
+  "description": "Exposed development smoke; not frozen independent gold.",
+  "splits": {
+    "dev": [
+      "case-rate-20260911",
+      "case-fuel-20260902",
+      "case-labor-20260907",
+      "case-macro-gdp-1h26"
+    ],
+    "validation": [
+      "case-gold-20260907",
+      "case-retail-20260805",
+      "case-fi-debt-3q26"
+    ],
+    "test": [
+      "case-bond-20260914",
+      "case-steel-historical",
+      "case-no-answer-it",
+      "case-gold-strict-abstain"
+    ]
+  },
+  "status": "development_smoke",
+  "independent_human_review": "pending"
+}

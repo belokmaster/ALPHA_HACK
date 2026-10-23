@@ -1,0 +1,226 @@
+{
+  "$defs": {
+    "Limits": {
+      "additionalProperties": false,
+      "properties": {
+        "transitions": {
+          "maximum": 12,
+          "minimum": 1,
+          "title": "Transitions",
+          "type": "integer"
+        },
+        "tools": {
+          "maximum": 6,
+          "minimum": 1,
+          "title": "Tools",
+          "type": "integer"
+        },
+        "repeated_searches": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Repeated Searches",
+          "type": "integer"
+        },
+        "input_per_call": {
+          "maximum": 8000,
+          "minimum": 1,
+          "title": "Input Per Call",
+          "type": "integer"
+        },
+        "budget_rub": {
+          "maximum": 5,
+          "minimum": 1,
+          "title": "Budget Rub",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "transitions",
+        "tools",
+        "repeated_searches",
+        "input_per_call",
+        "budget_rub"
+      ],
+      "title": "Limits",
+      "type": "object"
+    },
+    "ModeLimits": {
+      "additionalProperties": false,
+      "properties": {
+        "max_model_calls": {
+          "maximum": 4,
+          "minimum": 1,
+          "title": "Max Model Calls",
+          "type": "integer"
+        },
+        "input_tokens": {
+          "maximum": 24000,
+          "minimum": 1,
+          "title": "Input Tokens",
+          "type": "integer"
+        },
+        "output_tokens": {
+          "maximum": 4000,
+          "minimum": 1,
+          "title": "Output Tokens",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "max_model_calls",
+        "input_tokens",
+        "output_tokens"
+      ],
+      "title": "ModeLimits",
+      "type": "object"
+    },
+    "Modes": {
+      "additionalProperties": false,
+      "properties": {
+        "adaptive": {
+          "$ref": "#/$defs/ModeLimits"
+        },
+        "two_call_smoke": {
+          "$ref": "#/$defs/ModeLimits"
+        }
+      },
+      "required": [
+        "adaptive",
+        "two_call_smoke"
+      ],
+      "title": "Modes",
+      "type": "object"
+    },
+    "StageConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "model_id": {
+          "title": "Model Id",
+          "type": "string"
+        },
+        "max_output_tokens": {
+          "maximum": 4000,
+          "minimum": 1,
+          "title": "Max Output Tokens",
+          "type": "integer"
+        },
+        "reasoning_effort": {
+          "anyOf": [
+            {
+              "enum": [
+                "none",
+                "low",
+                "high"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reasoning Effort"
+        }
+      },
+      "required": [
+        "model_id",
+        "max_output_tokens"
+      ],
+      "title": "StageConfig",
+      "type": "object"
+    },
+    "Stages": {
+      "additionalProperties": false,
+      "properties": {
+        "plan": {
+          "$ref": "#/$defs/StageConfig"
+        },
+        "draft": {
+          "$ref": "#/$defs/StageConfig"
+        },
+        "verify": {
+          "$ref": "#/$defs/StageConfig"
+        }
+      },
+      "required": [
+        "plan",
+        "draft",
+        "verify"
+      ],
+      "title": "Stages",
+      "type": "object"
+    },
+    "Timeouts": {
+      "additionalProperties": false,
+      "properties": {
+        "transport_seconds": {
+          "exclusiveMinimum": 0,
+          "maximum": 30,
+          "title": "Transport Seconds",
+          "type": "number"
+        },
+        "call_seconds": {
+          "exclusiveMinimum": 0,
+          "maximum": 30,
+          "title": "Call Seconds",
+          "type": "number"
+        },
+        "run_seconds": {
+          "exclusiveMinimum": 0,
+          "maximum": 300,
+          "title": "Run Seconds",
+          "type": "number"
+        }
+      },
+      "required": [
+        "transport_seconds",
+        "call_seconds",
+        "run_seconds"
+      ],
+      "title": "Timeouts",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "version": {
+      "maxLength": 80,
+      "minLength": 1,
+      "title": "Version",
+      "type": "string"
+    },
+    "followup_policy": {
+      "const": "inherit_stages",
+      "title": "Followup Policy",
+      "type": "string"
+    },
+    "stages": {
+      "$ref": "#/$defs/Stages"
+    },
+    "timeouts": {
+      "$ref": "#/$defs/Timeouts"
+    },
+    "limits": {
+      "$ref": "#/$defs/Limits"
+    },
+    "modes": {
+      "$ref": "#/$defs/Modes"
+    }
+  },
+  "required": [
+    "schema_version",
+    "version",
+    "followup_policy",
+    "stages",
+    "timeouts",
+    "limits",
+    "modes"
+  ],
+  "title": "RuntimeConfig",
+  "type": "object"
+}

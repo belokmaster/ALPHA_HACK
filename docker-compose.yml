@@ -1,0 +1,46 @@
+name: alfa-foundation
+x-runtime: &runtime
+  build: .
+  image: alfa-foundation:local
+  env_file: .env
+services:
+  db:
+    image: docker.io/pgvector/pgvector:0.8.2-pg17-bookworm
+    environment:
+      POSTGRES_USER: alfa
+      POSTGRES_PASSWORD: alfa_local
+      POSTGRES_DB: alfa
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+    healthcheck:
+      test: [CMD-SHELL, 'pg_isready -U alfa -d alfa']
+      interval: 2s
+      timeout: 3s
+      retries: 30
+  migrate:
+    <<: *runtime
+    command: [alembic, upgrade, head]
+    depends_on:
+      db: {condition: service_healthy}
+  seed:
+    <<: *runtime
+    command: [python, -m, app.seed]
+    depends_on:
+      migrate: {condition: service_completed_successfully}
+  app:
+    <<: *runtime
+    ports: ['127.0.0.1:${APP_PORT:-8000}:8000']
+    depends_on:
+      seed: {condition: service_completed_successfully}
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://localhost:8000/health/ready')"]
+      interval: 3s
+      timeout: 3s
+      retries: 30
+  worker:
+    <<: *runtime
+    command: [python, -m, app.jobs.worker]
+    depends_on:
+      seed: {condition: service_completed_successfully}
+volumes:
+  dbdata:

@@ -1,0 +1,12 @@
+{
+  "domain": "synthetic",
+  "event_id": "rate_hold",
+  "text": "Учебное событие: условная ставка сохранена. Это синтетический текст, не новость ЦБ и не позиция Альфа-Банка.",
+  "available_at": "2026-10-01T00:00:00Z",
+  "actors": {"alice": ["demo_a", "demo_b"], "bob": ["demo_b", "demo_hidden"]},
+  "companies": [
+    {"id": "demo_a", "revenue": "1000", "loan": "1.0"},
+    {"id": "demo_b", "revenue": "1001", "loan": "0.0"},
+    {"id": "demo_hidden", "revenue": "999999", "loan": "1"}
+  ]
+}

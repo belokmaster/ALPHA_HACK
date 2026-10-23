@@ -1,0 +1,52 @@
+name: alfa-foundation-test
+x-runtime: &runtime
+  build: .
+  image: alfa-foundation:local
+  environment: &env
+    DATABASE_URL: postgresql+asyncpg://alfa:alfa_test@db:5432/alfa_test
+    TEST_DATABASE_URL: postgresql+asyncpg://alfa:alfa_test@db:5432/alfa_test
+    DEMO_MODE: 'true'
+    APP_SECRET: 'synthetic-test-secret-never-use-in-production'
+    LIVE_LLM_ENABLED: 'false'
+    TEST_BASE_URL: http://app:8000
+services:
+  db:
+    image: docker.io/pgvector/pgvector:0.8.2-pg17-bookworm
+    environment:
+      POSTGRES_USER: alfa
+      POSTGRES_PASSWORD: alfa_test
+      POSTGRES_DB: alfa_test
+    tmpfs: [/var/lib/postgresql/data]
+    healthcheck:
+      test: [CMD-SHELL, 'pg_isready -U alfa -d alfa_test']
+      interval: 2s
+      retries: 30
+  migrate:
+    <<: *runtime
+    command: [alembic, upgrade, head]
+    depends_on:
+      db: {condition: service_healthy}
+  seed:
+    <<: *runtime
+    command: [python, -m, app.seed]
+    depends_on:
+      migrate: {condition: service_completed_successfully}
+  app:
+    <<: *runtime
+    depends_on:
+      seed: {condition: service_completed_successfully}
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://localhost:8000/health/ready')"]
+      interval: 2s
+      retries: 30
+  worker:
+    <<: *runtime
+    command: [python, -m, app.jobs.worker]
+    depends_on:
+      seed: {condition: service_completed_successfully}
+  tests:
+    <<: *runtime
+    profiles: [test]
+    command: [pytest, tests/integration, tests/e2e, -q]
+    depends_on:
+      app: {condition: service_healthy}

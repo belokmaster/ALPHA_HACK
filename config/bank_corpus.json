@@ -1,0 +1,434 @@
+{
+  "version": "2.0",
+  "documents": {
+    "ALFA-7M26.pdf": {
+      "doc_id": "doc_alfa_7m26",
+      "sha256": "3c64c1e43f3b46a795f9581967f2dbc8efb0994cb77ab82e95da180830e9ff8c",
+      "title": "Макростатистика 7М26: рынок труда и экономика",
+      "published_at": "2026-09-07T00:00:00+03:00",
+      "available_at": null,
+      "data_as_of": null,
+      "topic": "macro_labor_retail",
+      "pages": 4,
+      "is_historical": false,
+      "availability_evidence": null,
+      "date_precision": "day"
+    },
+    "ALFA-Macro_Insights-Policy_Rate_11Sep.pdf": {
+      "doc_id": "doc_policy_rate_11sep",
+      "sha256": "92a96805f2b720f76bd0c52d2491044812b38401ab62d0f4a9157b4ca81c49bb",
+      "title": "Ключевая ставка ЦБ РФ: ставка 14,0%",
+      "published_at": "2026-09-11T00:00:00+03:00",
+      "available_at": null,
+      "data_as_of": null,
+      "topic": "monetary_policy_rate",
+      "pages": 4,
+      "is_historical": false,
+      "availability_evidence": null,
+      "date_precision": "day"
+    },
+    "ALFA-consumption.pdf": {
+      "doc_id": "doc_alfa_consumption",
+      "sha256": "807ee9925cf7d15ecffc72ad7142f9a83d342cd19690e12dd3b90aa2ba8ea1c6",
+      "title": "Потребление на пике",
+      "published_at": "2026-08-05T00:00:00+03:00",
+      "available_at": null,
+      "data_as_of": null,
+      "topic": "consumption_retail",
+      "pages": 4,
+      "is_historical": false,
+      "availability_evidence": null,
+      "date_precision": "day"
+    },
+    "ALFA-macro_stat1H26.pdf": {
+      "doc_id": "doc_macro_stat_1h26",
+      "sha256": "84899553fadf3e49abac7074c7b7d2afc2fa5c70b7fde0bf4c3eabe3d7402266",
+      "title": "Макростатистика 1П26: прогноз ВВП",
+      "published_at": "2026-07-31T00:00:00+03:00",
+      "available_at": null,
+      "data_as_of": null,
+      "topic": "gdp_macro",
+      "pages": 5,
+      "is_historical": false,
+      "availability_evidence": null,
+      "date_precision": "day"
+    },
+    "ALFA_Russian_Steels_1К21PreviewUpdate_15Apr2021.pdf": {
+      "doc_id": "doc_alfa_steels_2021",
+      "sha256": "36eaaa58ae68d858db3600dbf3cc93d0bdefb8ca03f1f5cc154c532cc32e0c86",
+      "title": "Российская сталь: прогноз результатов за 1 квартал 2021",
+      "published_at": "2021-04-15T00:00:00+03:00",
+      "available_at": null,
+      "data_as_of": null,
+      "topic": "commodities_steel",
+      "pages": 4,
+      "is_historical": true,
+      "valid_until": "2021-12-31T23:59:59Z",
+      "availability_evidence": null,
+      "date_precision": "day"
+    },
+    "FI_Strategy_3Q26_22072026.pdf": {
+      "doc_id": "doc_fi_strategy_3q26",
+      "sha256": "6c3a4882ee784b608880693d8ba2b62d0ba2236e34b404179adaab909c6dd046",
+      "title": "Тактический взгляд на 3-й квартал 2026 года",
+      "published_at": "2026-07-22T00:00:00+03:00",
+      "available_at": null,
+      "data_as_of": null,
+      "topic": "fixed_income_debt",
+      "pages": 27,
+      "is_historical": false,
+      "availability_evidence": null,
+      "date_precision": "day"
+    },
+    "Gold_digest_August26.pdf": {
+      "doc_id": "doc_gold_digest_aug26",
+      "sha256": "4159576a6223985dd318b6f5a04ad4aeb888f47a6c266d0e9ee9eb35bf01e245",
+      "title": "Обзор рынка золота, август 2026",
+      "published_at": null,
+      "available_at": null,
+      "data_as_of": null,
+      "topic": "commodities_gold",
+      "pages": 8,
+      "is_historical": false,
+      "availability_evidence": null,
+      "date_precision": "unknown"
+    },
+    "Inflation_tracker_02.pdf": {
+      "doc_id": "doc_inflation_tracker_02",
+      "sha256": "09d5537f6a52f5f8f2d9518ed9171e794382972ce38cbdc4bd3099b2db129d0c",
+      "title": "Инфляция 25–31 августа: основные выводы",
+      "published_at": "2026-09-02T00:00:00+03:00",
+      "available_at": null,
+      "data_as_of": null,
+      "topic": "inflation_fuel",
+      "pages": 3,
+      "is_historical": false,
+      "availability_evidence": null,
+      "date_precision": "day"
+    },
+    "Бонд_Бриф_14092026.pdf": {
+      "doc_id": "doc_bond_brief_14sep",
+      "sha256": "87dc17520e2a744f95580ee2ec42461d0ee6ebf19e752622a49c49600cb1b055",
+      "title": "Бонд Бриф: итоги недели",
+      "published_at": "2026-09-14T00:00:00+03:00",
+      "available_at": null,
+      "data_as_of": null,
+      "topic": "debt_bonds",
+      "pages": 5,
+      "is_historical": false,
+      "availability_evidence": null,
+      "date_precision": "day"
+    }
+  },
+  "verified_spans": [],
+  "review_status": "pending_human_page_verification",
+  "agent_spans": [
+    {
+      "filename": "ALFA-Macro_Insights-Policy_Rate_11Sep.pdf",
+      "sha256": "92a96805f2b720f76bd0c52d2491044812b38401ab62d0f4a9157b4ca81c49bb",
+      "page": 1,
+      "span": "agent_1",
+      "start": 129,
+      "end": 193,
+      "quote": "ЦБ РФ принял решение оставить ставку неизменной на уровне 14,0%:",
+      "value_kind": "fact",
+      "metric": "policy_rate",
+      "unit": "percent",
+      "horizon": "2026-09-11",
+      "caveats": [
+        "Decision unchanged, not an increase; bank report of CBR statement"
+      ],
+      "review_status": "agent_page_checked",
+      "reviewer": "Codex; not independent human",
+      "status": "unverified"
+    },
+    {
+      "filename": "ALFA-Macro_Insights-Policy_Rate_11Sep.pdf",
+      "sha256": "92a96805f2b720f76bd0c52d2491044812b38401ab62d0f4a9157b4ca81c49bb",
+      "page": 1,
+      "span": "agent_2",
+      "start": 591,
+      "end": 693,
+      "quote": "совет директоров предметно обсуждал\nтолько вариант паузы, а вариант снижения ставки не рассматривался;",
+      "value_kind": "fact",
+      "metric": "decision_options",
+      "unit": null,
+      "horizon": "2026-09-11",
+      "caveats": [
+        "Reported options, not forecast"
+      ],
+      "review_status": "agent_page_checked",
+      "reviewer": "Codex; not independent human",
+      "status": "unverified"
+    },
+    {
+      "filename": "ALFA-Macro_Insights-Policy_Rate_11Sep.pdf",
+      "sha256": "92a96805f2b720f76bd0c52d2491044812b38401ab62d0f4a9157b4ca81c49bb",
+      "page": 1,
+      "span": "agent_3",
+      "start": 4458,
+      "end": 4608,
+      "quote": "Если раньше мы ориентировались на ставку на уровне 13,5% на конец\n2026 г., то теперь мы ожидаем ее сохранения на текущем значении 14,0% до конца года.",
+      "value_kind": "forecast",
+      "metric": "key_rate_end_2026",
+      "unit": "percent",
+      "horizon": "end_2026",
+      "caveats": [
+        "13.5 replaced by 14.0 for same metric/subject/horizon; not annual average"
+      ],
+      "review_status": "agent_page_checked",
+      "reviewer": "Codex; not independent human",
+      "status": "unverified",
+      "subject": "CBR"
+    },
+    {
+      "filename": "ALFA-Macro_Insights-Policy_Rate_11Sep.pdf",
+      "sha256": "92a96805f2b720f76bd0c52d2491044812b38401ab62d0f4a9157b4ca81c49bb",
+      "page": 1,
+      "span": "agent_4",
+      "start": 4609,
+      "end": 4682,
+      "quote": "При этом наш прогноз\nпо ставке на конец 2027 г. остается на уровне 12,0%.",
+      "value_kind": "forecast",
+      "metric": "key_rate_end_2027",
+      "unit": "percent",
+      "horizon": "end_2027",
+      "caveats": [
+        "Unchanged; not the client contract rate"
+      ],
+      "review_status": "agent_page_checked",
+      "reviewer": "Codex; not independent human",
+      "status": "unverified",
+      "subject": "CBR"
+    },
+    {
+      "filename": "ALFA-Macro_Insights-Policy_Rate_11Sep.pdf",
+      "sha256": "92a96805f2b720f76bd0c52d2491044812b38401ab62d0f4a9157b4ca81c49bb",
+      "page": 1,
+      "span": "agent_5",
+      "start": 4319,
+      "end": 4371,
+      "quote": "Мы ожидаем сохранения паузы на заседании 23 октября:",
+      "value_kind": "forecast",
+      "metric": "next_meeting",
+      "unit": null,
+      "horizon": "2026-10-23",
+      "caveats": [
+        "Forecast at publication; not outcome"
+      ],
+      "review_status": "agent_page_checked",
+      "reviewer": "Codex; not independent human",
+      "status": "unverified"
+    },
+    {
+      "filename": "ALFA-Macro_Insights-Policy_Rate_11Sep.pdf",
+      "sha256": "92a96805f2b720f76bd0c52d2491044812b38401ab62d0f4a9157b4ca81c49bb",
+      "page": 1,
+      "span": "agent_6",
+      "start": 2432,
+      "end": 2511,
+      "quote": "Высокий уровень инфляционных ожиданий остается под вниманием руководства ЦБ РФ:",
+      "value_kind": "opinion",
+      "metric": "inflation_expectations_risk",
+      "unit": null,
+      "horizon": "publication",
+      "caveats": [
+        "Interpretive heading; do not infer client expenses"
+      ],
+      "review_status": "agent_page_checked",
+      "reviewer": "Codex; not independent human",
+      "status": "unverified"
+    },
+    {
+      "filename": "Inflation_tracker_02.pdf",
+      "sha256": "09d5537f6a52f5f8f2d9518ed9171e794382972ce38cbdc4bd3099b2db129d0c",
+      "page": 1,
+      "span": "agent_7",
+      "start": 125,
+      "end": 250,
+      "quote": "За прошедшую неделю (25.08-31.08) Росстат\nзафиксировал дефляцию на 0,01% н/н после\nинфляции на 0,01% н/н на предыдущей неделе",
+      "value_kind": "fact",
+      "metric": "cpi_weekly",
+      "unit": "percent_week_on_week",
+      "horizon": "2026-08-25/2026-08-31",
+      "caveats": [
+        "Reported Rosstat data; retain period, -0.01 vs +0.01 prior"
+      ],
+      "review_status": "agent_page_checked",
+      "reviewer": "Codex; not independent human",
+      "status": "unverified"
+    },
+    {
+      "filename": "Inflation_tracker_02.pdf",
+      "sha256": "09d5537f6a52f5f8f2d9518ed9171e794382972ce38cbdc4bd3099b2db129d0c",
+      "page": 1,
+      "span": "agent_8",
+      "start": 410,
+      "end": 505,
+      "quote": "Рост цен на бензин остался умеренно\nвысоким — 0,91% н/н после роста на 0,89%\nн/н неделей ранее,",
+      "value_kind": "fact",
+      "metric": "gasoline_weekly",
+      "unit": "percent_week_on_week",
+      "horizon": "2026-08-25/2026-08-31",
+      "caveats": [
+        "0.91 vs 0.89 previous week; no transfer to client cost base"
+      ],
+      "review_status": "agent_page_checked",
+      "reviewer": "Codex; not independent human",
+      "status": "unverified"
+    },
+    {
+      "filename": "Inflation_tracker_02.pdf",
+      "sha256": "09d5537f6a52f5f8f2d9518ed9171e794382972ce38cbdc4bd3099b2db129d0c",
+      "page": 1,
+      "span": "agent_9",
+      "start": 506,
+      "end": 550,
+      "quote": "Цены на дизель остались\nпочти без изменений,",
+      "value_kind": "fact",
+      "metric": "diesel_weekly",
+      "unit": null,
+      "horizon": "2026-08-25/2026-08-31",
+      "caveats": [
+        "No exact diesel number on this text line; do not add 0.04"
+      ],
+      "review_status": "agent_page_checked",
+      "reviewer": "Codex; not independent human",
+      "status": "unverified"
+    },
+    {
+      "filename": "Inflation_tracker_02.pdf",
+      "sha256": "09d5537f6a52f5f8f2d9518ed9171e794382972ce38cbdc4bd3099b2db129d0c",
+      "page": 1,
+      "span": "agent_10",
+      "start": 1897,
+      "end": 2107,
+      "quote": "Мы также полагаем, что складывающаяся\nситуация на рынке топлива не позволяет\nрассчитывать на то, что новая волна роста цен\nуже исчерпана, поэтому динамика в этом\nсегменте остается важным проинфляционным\nриском.",
+      "value_kind": "opinion",
+      "metric": "fuel_risk",
+      "unit": null,
+      "horizon": "publication",
+      "caveats": [
+        "Bank opinion, not observed company impact"
+      ],
+      "review_status": "agent_page_checked",
+      "reviewer": "Codex; not independent human",
+      "status": "unverified"
+    },
+    {
+      "filename": "Inflation_tracker_02.pdf",
+      "sha256": "09d5537f6a52f5f8f2d9518ed9171e794382972ce38cbdc4bd3099b2db129d0c",
+      "page": 1,
+      "span": "agent_11",
+      "start": 2108,
+      "end": 2176,
+      "quote": "На неделе с 1 по 7 сентября мы ожидаем рост\nцен на уровне 0,03% н/н.",
+      "value_kind": "forecast",
+      "metric": "cpi_weekly_forecast",
+      "unit": "percent_week_on_week",
+      "horizon": "2026-09-01/2026-09-07",
+      "caveats": [
+        "Not actual inflation"
+      ],
+      "review_status": "agent_page_checked",
+      "reviewer": "Codex; not independent human",
+      "status": "unverified"
+    },
+    {
+      "filename": "Gold_digest_August26.pdf",
+      "sha256": "4159576a6223985dd318b6f5a04ad4aeb888f47a6c266d0e9ee9eb35bf01e245",
+      "page": 2,
+      "span": "agent_12",
+      "start": 227,
+      "end": 369,
+      "quote": "В ходе ралли котировки вернулись\nв область $4 650-4 700 за унцию с $4 000 за унцию,\nзатем скорректировались примерно к $4 400 на конец\nмесяца.",
+      "value_kind": "fact",
+      "metric": "gold_price_path",
+      "unit": "USD_per_troy_ounce",
+      "horizon": "August_2026",
+      "caveats": [
+        "Reported prices 4650-4700 from 4000, close about 4400; not old 2450-2550 draft"
+      ],
+      "review_status": "agent_page_checked",
+      "reviewer": "Codex; not independent human",
+      "status": "unverified"
+    },
+    {
+      "filename": "Gold_digest_August26.pdf",
+      "sha256": "4159576a6223985dd318b6f5a04ad4aeb888f47a6c266d0e9ee9eb35bf01e245",
+      "page": 2,
+      "span": "agent_13",
+      "start": 1630,
+      "end": 1766,
+      "quote": "если данный ряд последовательных действий\nМинфина США сработает, то ставки по длинным\nгособлигациям США снизятся, а металл пойдет вверх,",
+      "value_kind": "forecast",
+      "metric": "conditional_gold",
+      "unit": null,
+      "horizon": "conditional",
+      "caveats": [
+        "Retain if-condition and mechanism, no client attribution"
+      ],
+      "review_status": "agent_page_checked",
+      "reviewer": "Codex; not independent human",
+      "status": "unverified"
+    },
+    {
+      "filename": "Gold_digest_August26.pdf",
+      "sha256": "4159576a6223985dd318b6f5a04ad4aeb888f47a6c266d0e9ee9eb35bf01e245",
+      "page": 2,
+      "span": "agent_14",
+      "start": 4793,
+      "end": 4912,
+      "quote": "Диверсификация резервов центральных банков,\nширокий спрос на золотые ETF и покупки в Азии\nостаются опорой рынка золота.",
+      "value_kind": "opinion",
+      "metric": "gold_support",
+      "unit": null,
+      "horizon": "publication",
+      "caveats": [
+        "Bank interpretation, not numeric central bank purchases"
+      ],
+      "review_status": "agent_page_checked",
+      "reviewer": "Codex; not independent human",
+      "status": "unverified"
+    },
+    {
+      "filename": "Gold_digest_August26.pdf",
+      "sha256": "4159576a6223985dd318b6f5a04ad4aeb888f47a6c266d0e9ee9eb35bf01e245",
+      "page": 2,
+      "span": "agent_15",
+      "start": 5068,
+      "end": 5271,
+      "quote": "Устойчивая дезинфляция вместе с ослаблением\nдоллара и снижением реальных доходностей, новые\nпритоки в ETF, а также продолжение покупок со\nстороны мировых ЦБ, Важен именно совместный\nсигнал этих факторов.",
+      "value_kind": "forecast",
+      "metric": "gold_growth_conditions",
+      "unit": null,
+      "horizon": "conditional",
+      "caveats": [
+        "Joint conditions; not a guaranteed price target"
+      ],
+      "review_status": "agent_page_checked",
+      "reviewer": "Codex; not independent human",
+      "status": "unverified"
+    }
+  ],
+  "forecast_revisions": [
+    {
+      "previous_filename": "ALFA-7M26.pdf",
+      "replacement_filename": "ALFA-Macro_Insights-Policy_Rate_11Sep.pdf",
+      "metric": "key_rate_end_2026",
+      "subject": "CBR",
+      "horizon": "end_2026",
+      "replacement_span": "agent_3",
+      "review_status": "agent_page_checked; human confirmation of old table pending"
+    },
+    {
+      "previous_filename": "ALFA-consumption.pdf",
+      "replacement_filename": "ALFA-Macro_Insights-Policy_Rate_11Sep.pdf",
+      "metric": "key_rate_end_2026",
+      "subject": "CBR",
+      "horizon": "end_2026",
+      "replacement_span": "agent_3",
+      "review_status": "agent_page_checked; human confirmation of old table pending"
+    }
+  ]
+}

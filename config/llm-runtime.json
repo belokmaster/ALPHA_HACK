@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "version": "llm-runtime-live-6",
+  "followup_policy": "inherit_stages",
+  "stages": {
+    "plan": {
+      "model_id": "deepseek/deepseek-v4.1-flash",
+      "max_output_tokens": 1000,
+      "reasoning_effort": "none"
+    },
+    "draft": {
+      "model_id": "deepseek/deepseek-v4.1-flash",
+      "max_output_tokens": 1400,
+      "reasoning_effort": "none"
+    },
+    "verify": {
+      "model_id": "deepseek/deepseek-v4.1-flash",
+      "max_output_tokens": 700,
+      "reasoning_effort": "none"
+    }
+  },
+  "timeouts": {
+    "transport_seconds": 25,
+    "call_seconds": 25,
+    "run_seconds": 300
+  },
+  "limits": {
+    "transitions": 12,
+    "tools": 6,
+    "repeated_searches": 1,
+    "input_per_call": 8000,
+    "budget_rub": 5
+  },
+  "modes": {
+    "adaptive": {
+      "max_model_calls": 3,
+      "input_tokens": 24000,
+      "output_tokens": 4000
+    },
+    "two_call_smoke": {
+      "max_model_calls": 2,
+      "input_tokens": 16000,
+      "output_tokens": 2100
+    }
+  }
+}

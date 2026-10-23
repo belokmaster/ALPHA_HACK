@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Альфа-Бизнес · Новости для вашего бизнеса</title>
+  <style>{% include "styles.css" %}</style>
+</head>
+<body>
+<header class="app-header">
+  <div class="header-container">
+    <div class="brand"><span class="brand-logo" aria-hidden="true">А</span><span class="brand-text">Альфа-Бизнес</span><span class="prototype-badge">DEMO · Демонстрационный прототип</span></div>
+    <div class="header-controls">
+      <details class="demo-tools"><summary>Инструменты демо</summary><button id="btn-toggle-fixtures" class="btn btn-secondary btn-sm" type="button" aria-pressed="false">Включить UI-fixtures</button></details>
+      <div id="user-capsule" class="user-capsule" style="display:none"><span id="user-name">Гость</span><span id="user-company"></span><button id="btn-logout" class="btn-icon" title="Сменить пользователя" aria-label="Сменить пользователя">✕</button></div>
+    </div>
+  </div>
+</header>
+<aside id="fixture-mode-banner" class="fixture-mode-banner hidden" role="alert">
+  <strong>ТЕСТОВЫЕ ДАННЫЕ ИНТЕРФЕЙСА — это проверочные экраны, не результат анализа ваших данных</strong>
+  <label for="fixture-scenario-select">Проверочный сценарий</label><select id="fixture-scenario-select" class="context-select"></select>
+</aside>
+{% if demo %}
+<nav id="shell-nav" class="shell-nav hidden" aria-label="Альфа-Бизнес"><button id="btn-home" class="btn btn-secondary" type="button">Главная</button><button id="btn-analytics" class="btn btn-primary" type="button">Новости и аналитика</button></nav>
+<section id="context-ribbon" class="context-ribbon hidden" aria-label="Параметры контекста компании">
+  <div class="context-container"><div class="context-fields">
+    <div class="field-group"><label for="company-select" class="field-label">Компания</label><select id="company-select" class="context-select"></select></div>
+    <div class="field-group"><label for="role-select" class="field-label">Ваша роль</label><select id="role-select" class="context-select"><option value="unknown">Не выбрана</option><option value="ceo">Генеральный директор</option><option value="cfo">Финансовый директор</option></select></div>
+    <button id="btn-apply-context" class="btn btn-primary" type="button">Применить выбор</button>
+    <details class="context-advanced"><summary>Дата и режим просмотра</summary>
+      <label for="temporal-mode-select">Как учитывать доступность данных</label><select id="temporal-mode-select" class="context-select"><option value="snapshot_demo">Снимок данных — не проверка знаний в прошлом</option><option value="strict_as_of">Строго на выбранную дату</option></select>
+      <label for="asof-input">Дата среза с часовым поясом</label><input id="asof-input" class="context-input" value="2026-10-22T12:00:00Z">
+      <span id="context-version-badge" class="context-version-badge">v1</span>
+    </details>
+  </div><p id="role-source" class="role-source"></p></div>
+</section>
+<main class="main-content">
+  <div id="global-error-alert" class="notice-box warning hidden" role="alert"></div>
+  <section id="auth-area" class="auth-screen" aria-labelledby="auth-heading"><div class="auth-card">
+    <h1 id="auth-heading">Вход в Альфа-Бизнес</h1><p>Новости, которые помогают понять риски и возможности для вашей компании.</p>
+    <p class="notice-box info">Демонстрационный вход. Сервис показывает данные обезличенного кейса и сохраняет разграничение доступа.</p>
+    <label for="actor-select">Демо-пользователь</label><select id="actor-select" class="auth-select"><option value="alice">Alice — первый пользователь</option><option value="bob">Bob — другой набор разрешений</option></select>
+    <button id="btn-login" class="btn btn-primary" type="button">Войти</button>
+    <p class="notice-box info">Не является индивидуальной инвестиционной рекомендацией. Выводы AI не являются официальной позицией банка.</p>
+  </div></section>
+  <section id="home-area" class="bank-home hidden" aria-label="Главный экран Альфа-Бизнеса">
+    <div class="home-heading"><p class="eyebrow">АЛЬФА-БИЗНЕС</p><h1>Главное для вашего бизнеса</h1><p>Демонстрационная оболочка интернет-банка. Профиль компании — из предоставленного обезличенного набора.</p></div>
+    <section class="analytics-entry"><div><span class="eyebrow">НОВОСТИ И РЕШЕНИЯ</span><h2>Что меняется для вашей компании</h2><p>Значимые события, позиция банка и условные сценарии влияния — с понятными основаниями.</p><div id="home-summary"></div></div><button id="btn-analytics-entry" class="btn btn-primary" type="button">Открыть аналитику</button></section>
+    <section class="home-help"><h2>От события к решению</h2><p>Выберите компанию и свою роль. Проверьте причину релевантности события, откройте источники и уточните неизвестные условия перед выводом.</p></section>
+  </section>
+  <nav id="app-tabs" class="app-tabs hidden" aria-label="Разделы аналитики"><div role="tablist"><button class="tab-btn active" role="tab" data-tab="feed" aria-selected="true">Для вашей компании</button><button class="tab-btn" role="tab" data-tab="news" aria-selected="false">Все новости источников</button><button class="tab-btn" role="tab" data-tab="status" aria-selected="false">Источники и границы</button></div></nav>
+  <div id="app-area" class="hidden">
+    <section id="tab-feed-content" role="tabpanel"><h1>События для вашей компании</h1><p class="feed-intro">Порядок объясняется наблюдаемыми признаками. Архивные материалы отмечены отдельно и не выдаются за текущие новости.</p><div id="feed-container"></div>
+      <div id="job-progress-container" class="hidden"></div>
+      <details class="saved-analysis"><summary>Открыть ранее сохранённый анализ по ссылке или коду</summary><label for="saved-analysis-id">Код анализа</label><input id="saved-analysis-id" class="context-input"><button id="btn-open-saved" class="btn btn-secondary" type="button">Открыть сохранённый</button></details>
+      <div id="analysis-container"></div>
+      <section id="followup-container" class="followup-card hidden" aria-labelledby="followup-heading"><h3 id="followup-heading">Уточнить условия или задать вопрос</h3><p>Ответ использует закреплённый контекст исходного анализа. Сообщённые вами условия остаются допущениями, пока не проверены по договору.</p><div id="followup-error-box" class="notice-box warning hidden"></div>
+        <label for="followup-text">Ваш вопрос</label><textarea id="followup-text" class="followup-textarea" maxlength="2000" placeholder="Что вы хотите уточнить о влиянии события?"></textarea><div id="followup-char-count" class="char-counter">0 / 2000</div>
+        <label class="followup-assumption-toggle"><input id="assumption-toggle" type="checkbox">Сообщить условие договора или работы компании</label>
+        <div id="assumption-fields" class="assumption-fields hidden"><input type="hidden" id="assumption-name" value="contract_statement"><label for="assumption-value">Ваше условие — не проверено документом</label><input id="assumption-value" class="context-input" maxlength="500" placeholder="Например: ставка фиксирована до конца 2027 года"></div>
+        <button id="btn-followup-submit" class="btn btn-primary" type="button">Отправить уточнение</button><div id="conversation-thread" class="conversation-thread"></div>
+      </section>
+    </section>
+    <section id="tab-news-content" class="hidden" role="tabpanel"><h1>Новости регуляторов и ведомств</h1><p>Сохранённые публикации ЦБ и Росстата. Наличие новости не доказывает её значимость для выбранной компании.</p><label for="news-source-filter">Источник</label><select id="news-source-filter" class="context-select"><option value="all">Все</option><option value="cbr">Банк России</option><option value="rosstat">Росстат</option></select><button id="btn-refresh-news" class="btn btn-secondary" type="button">Обновить список</button><div id="news-container"></div></section>
+    <section id="tab-status-content" class="hidden" role="tabpanel"><h1>Источники и границы прототипа</h1><p>Проверены два ограниченных механизма: ставки и потенциальные топливные расходы транспортной деятельности. Это не поддержка всех отраслей и новостей. Ответ AI в демонстрационном стенде имитируется; источники, данные, поиск и сохранение настоящие.</p><div id="status-sources-container"></div></section>
+  </div>
+</main>
+<aside id="evidence-drawer-backdrop" class="evidence-drawer-backdrop drawer-backdrop" aria-label="Источники и данные компании"><div class="evidence-drawer drawer-panel"><div class="drawer-header"><h3 id="drawer-title">Источники и основания</h3><button id="btn-close-drawer" class="btn-icon" aria-label="Закрыть панель" type="button">✕</button></div><div id="drawer-body" class="drawer-body"></div></div></aside>
+<footer class="app-footer"><p>Прототип новостной аналитики · Данные и условия требуют проверки перед финансовым решением.</p><details><summary>Техническая документация</summary><a href="/docs" target="_blank" rel="noopener noreferrer">Описание API</a></details></footer>
+<script>{% include "api.js" %}
+{% include "fixtures.js" %}
+{% include "ui.js" %}
+{% include "app.js" %}</script>
+{% else %}<main class="main-content"><h1>Режим демонстрации выключен</h1><p>DEMO_MODE=false. Производственный способ входа пока не подключён.</p></main>{% endif %}
+</body>
+</html>

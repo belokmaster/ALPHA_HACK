@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="ru">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data:; style-src 'unsafe-inline'; script-src 'unsafe-inline'; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<title>G1 — ручная сверка целого анализа</title>
+<style>
+body{font:16px/1.55 system-ui,sans-serif;color:#152337;background:#f6f8fb;margin:0}main{max-width:1120px;margin:auto;padding:28px}h1,h2,h3{line-height:1.25}h2{margin-top:42px}a{color:#174fa3;overflow-wrap:anywhere}pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px;background:#f3f5f8;padding:12px}code,.id{font:13px/1.5 monospace;overflow-wrap:anywhere}article,.panel{background:white;border:1px solid #d3dce8;border-radius:8px;padding:20px;margin:20px 0}table{border-collapse:collapse;width:100%;table-layout:fixed}td,th{border:1px solid #d3dce8;padding:10px;text-align:left;vertical-align:top;overflow-wrap:anywhere}th{width:24%;background:#f2f5f9}img{display:block;max-width:100%;height:auto;border:1px solid #ced7e5;margin:12px 0}blockquote{margin:12px 0;border-left:4px solid #8a9cb6;padding:8px 14px;white-space:pre-wrap}.warning{background:#fff5d6;padding:15px;border-left:4px solid #a56a00}.muted{color:#526174}textarea{width:100%;box-sizing:border-box;min-height:80px}select,input,button{font:inherit;max-width:100%;padding:8px;margin:4px 0}button{cursor:pointer}nav a{display:inline-block;margin:5px 15px 5px 0}.print-only{display:none}@media print{body{background:white}main{padding:0}article{break-before:page;border:0;padding:0}button,nav{display:none}input,select,textarea{border:1px solid #999}details>*{display:block}img{max-height:850px;object-fit:contain}a{color:inherit}}
+</style>
+<main>
+<h1>G1: сверка результата и его оснований</h1>
+<p>Это пакет для решения человека, а не подтверждённый gold. Все решения и комментарии пусты. Агентские проверки лежат отдельно в <a href="agent-checks.json">agent-checks.json</a> с меткой <code>agent_page_checked</code>.</p>
+<p class="id">Код: {{ lock.source_revision }}<br>Пакет: {{ packet_id }}<br>Исходный анализ: {{ analyses[0].id }}<br>Его follow-up: {{ analyses[1].id }}</p>
+<p class="warning">Результаты получены с управляемыми ответами transport (controlled), не live-моделью. Проверяются все 2 + 3 утверждения, их условия, вопросы, ограничения и восемь фоновых Evidence. Раздел bank_view пуст: фоновые прогнозы не являются утверждениями результата от имени банка.</p>
+<nav><a href="#instructions">Инструкция</a><a href="#whole">Весь результат</a><a href="#review">Таблица проверки</a><a href="#categories">Особые группы</a><a href="#decisions">Записать решения</a><a href="manifest.json">Версии и SHA</a></nav>
+<section id="instructions">
+<h2>Как проверять</h2>
+<ol>
+<li>Распакуйте весь ZIP в одну папку и откройте <code>index.html</code>. Сначала прочитайте оба целых результата ниже. <a href="frozen/base.json">base.json</a> и <a href="frozen/followup.json">followup.json</a> — полные неизменённые сохранённые ответы API.</li>
+<li>В строке проверки откройте PDF и указанную страницу, сопоставьте изображение, точную цитату и контекст. Красные рамки — указатели старого OCR; оригинальная страница без рамок доступна рядом. Координаты PDF даны в пунктах от верхнего левого угла, интервалы page_chars полуоткрытые [start,end) в сохранённом OCR.</li>
+<li>Для вывода модели проверьте, следует ли он из <em>заявленных</em> ссылок и условий: совпадения слов недостаточно. Неизвестные параметры договора не становятся фактами. «Фиксирована до конца 2027» — сообщение пользователя, не банковское доказательство.</li>
+<li>В каждой строке выберите «подтверждено / ошибка / недостаточно данных», напишите комментарий. Введите имя проверяющего и дату и нажмите «Скачать решения». Файл сохраните отдельно от исходного пакета. До скачивания правки хранятся только в открытой вкладке; перед закрытием экспортируйте их.</li>
+</ol>
+<p>Файлы новостей — сохранённый HTML в безопасном текстовом виде и RSS, а не свежая версия сайта. Их изображения — явно подписанные производные визуализации. Октябрьские новости не используются как доказательства сентябрьского G1. У PDF неизвестен <code>available_at</code>; дата публикации не заменяет дату доступности.</p>
+<p>У сохранённого контекста ACL version=1, у demo после теста отзыва прав — 2. Старый API может законно вернуть 404. Открывайте закреплённые ответы этого пакета; не меняйте права и не подменяйте исходный анализ другим <code>g1-final-analysis.json</code>. <a href="frozen/database.json">Read-only снимок хранилища</a> содержит исходные версии, событие и сообщение follow-up.</p>
+</section>
+<section id="whole">
+<h2>Весь сохранённый результат</h2>
+{% for a in analyses %}
+<article id="analysis-{{ a.id }}">
+<h3>{{ 'Исходный анализ' if loop.first else 'Follow-up: ставка фиксирована до конца 2027' }}</h3>
+<p class="id">{{ a.id }} · parent={{ a.parent_analysis_id }} · policy={{ a.policy_version }}</p>
+<p>Компания <b>{{ a.company_id }}</b>; событие <code>{{ a.event_id }}</code>. Bank evidence: <b>{{ a.bank_evidence_status }}</b>.</p>
+<details><summary>Закреплённый контекст, дата и provenance результата</summary><pre>{{ {'context':a.context,'temporal':a.temporal,'delivery':a.delivery,'company_snapshot_id':a.company_snapshot_id,'assumptions':a.assumptions}|tojson(indent=2) }}</pre></details>
+{% for name, ids in a.sections.items() if name != 'schema_version' %}
+<h4>{{ {'happened':'Что произошло','relevance':'Применимость к компании','consequences':'Последствия','actions':'Действия','bank_view':'Позиция банка','basis':'Основания'}.get(name,name) }} <code>{{ name }}</code></h4>
+{% if not ids %}<p class="muted">Раздел пуст в сохранённом ответе.</p>{% endif %}
+{% for cid in ids %}{% for c in a.claims if c.id == cid %}
+<blockquote>{{ c.text }}</blockquote><p class="id">{{ c.id }} · {{ c.kind }} · origin={{ c.origin }} · check={{ c.check }}</p>
+{% if c.conditions %}<p><b>Условия:</b></p><ul>{% for v in c.conditions %}<li>{{ v }}</li>{% endfor %}</ul>{% endif %}
+{% if c.alternatives %}<p><b>Альтернативы:</b></p><ul>{% for v in c.alternatives %}<li>{{ v }}</li>{% endfor %}</ul>{% endif %}
+{% endfor %}{% endfor %}
+{% endfor %}
+<h4>Вопросы, неизвестные поля и ограничения</h4>
+<ul>{% for question in a.questions %}<li>{{ question }}</li>{% endfor %}</ul>
+{% for notice in a.notices %}<p>{{ notice.text }}</p>{% endfor %}
+<p>Неизвестные поля: <code>{{ a.missing_fields|join(", ") }}</code>.</p>
+<details><summary>Точные поля DTO</summary><pre>{{ {'questions':a.questions,'missing_fields':a.missing_fields,'notices':a.notices}|tojson(indent=2) }}</pre></details>
+<details><summary>Все утверждения без сокращений, включая ссылки и статусы</summary><pre>{{ a.claims|tojson(indent=2) }}</pre></details>
+<details><summary>Все сохранённые признаки компании и их происхождение</summary><pre>{{ a.features|tojson(indent=2) }}</pre></details>
+<details><summary>Все восемь Evidence этого результата</summary><pre>{{ a.evidence|tojson(indent=2) }}</pre></details>
+</article>
+{% endfor %}
+</section>
+<section><h2>Оригиналы: все страницы</h2><p>Два исходных PDF полностью сохранены. Здесь доступны все девять отрисованных страниц без рамок.</p><ul>{% for p in pages %}<li><a href="{{ p.image }}">{{ p.source }} · страница {{ p.page }}</a></li>{% endfor %}</ul></section>
+<section id="categories">
+<h2>Обязательные отдельные группы</h2>
+<p>Ссылки ведут к тем же строкам, решения не дублируются.</p>
+{% for title, group in [('1. Числовые таблицы и сноски','Числовые таблицы и сноски'),('2. Прогнозы и их обновления','Прогнозы и фоновые доказательства'),('3. Выводы о конкретной компании','Выводы о компании'),('4. Пользовательские допущения из follow-up','Пользовательские допущения')] %}
+<h3>{{ title }}</h3><ul>{% for r in rows if r.group == group %}<li><a href="#row-{{ r.id }}">{{ r.id }}</a> — {{ r.exact_text[:150] }}{% if r.exact_text|length > 150 %}…{% endif %}</li>{% endfor %}</ul>
+{% endfor %}
+<h3>5. Утверждения с недостаточным независимым основанием</h3>
+<p>Это перечень для проверки достаточности, не проставленное решение. Условия договора не приложены; для модельного вывода следует оценить переход от события и LOA, а не приписать ему фоновые прогнозы.</p>
+<ul>{% for r in rows if r.claim_id and r.gaps %}<li><a href="#row-{{ r.id }}">{{ r.id }}</a>: {% for gap in r.gaps %}{{ gap }} {% endfor %}</li>{% endfor %}</ul>
+<h3>Отдельно: реальные новости ЦБ и Росстата</h3>
+<ul>{% for r in rows if r.group == 'Новости отдельно от исторического G1' %}<li><a href="#row-{{ r.id }}">{{ r.id }}</a></li>{% endfor %}</ul>
+</section>
+<section id="review">
+<h2>Таблица ручной проверки</h2>
+<p>{{ rows|length }} строк: пять утверждений, восемь фоновых цитат, признаки компании, целостность результата, таблицы/оговорки и две самостоятельные новости. <a href="review-rows.json">Машиночитаемая таблица</a>.</p>
+{% for r in rows %}
+<article id="row-{{ r.id }}">
+<h3>{{ loop.index }}. {{ r.group }}</h3>
+<table>
+<tr><th>ID строки / утверждения</th><td><code>{{ r.id }}</code><br>claim: <code>{{ r.claim_id or 'не claim результата' }}</code><br>analysis: <code>{{ r.analysis_id or 'контекст источника' }}</code></td></tr>
+<tr><th>Точный текст</th><td><blockquote>{{ r.exact_text }}</blockquote>{% if r.pointer %}<code>{{ r.pointer }}</code>{% endif %}</td></tr>
+<tr><th>Тип и происхождение</th><td>{{ r.type }}{% if r.origin %}; origin={{ r.origin }}{% endif %}{% if r.value_kind %}; source value_kind={{ r.value_kind }}{% endif %}<br>{{ 'Фоновая цитата не добавляет bank_view в анализ.' if r.evidence_id else '' }}</td></tr>
+<tr><th>Условия, альтернативы и признаки</th><td>{% for c in r.conditions|default([]) %}<p>{{ c }}</p>{% endfor %}{% for c in r.alternatives|default([]) %}<p>Альтернатива: {{ c }}</p>{% endfor %}{% for fid in r.feature_ids|default([]) %}<code>{{ fid }}</code><br>{% endfor %}{% if r.message_file %}<a href="frozen/database.json">{{ r.message_file }}</a>{% endif %}</td></tr>
+<tr><th>Evidence, версии, файл / URL, страница и диапазон</th><td>
+{% if r.source_file %}<a href="{{ r.source_file }}{% if r.page %}#page={{ r.page }}{% endif %}">{{ r.source_file }}</a><br><code>{{ r.source_version }}</code><br>Страница: {{ r.page if r.page else 'не PDF / неприменимо' }}; <code>{{ r.span }}</code>{% endif %}
+{% if r.url %}<p><a href="{{ r.url }}" target="_blank" rel="noopener noreferrer">URL исходной статьи (может измениться)</a></p>{% endif %}
+{% for ref in r.refs|default([]) %}
+<p class="id">Evidence: {{ ref.id }}<br>SourceVersion: {{ ref.source_version_id }}<br>Document: {{ ref.document_version_id }}<br>Quality: {{ ref.quality }} · {{ ref.value_kind }}<br>published_at={{ ref.published_at }}; available_at={{ ref.available_at }}<br>Страница: {{ ref.page or 'не PDF' }}; {{ ref.span }}</p>
+{% if ref.source_file %}<p><a href="{{ ref.source_file }}#page={{ ref.page }}">Исходный PDF · страница {{ ref.page }}</a></p>{% endif %}
+{% if ref.bbox_pdf_points_top_left %}<p class="id">BBox PDF pt, верхний левый угол: {{ ref.bbox_pdf_points_top_left }}<br>BBox OCR pixels / {{ ref.ocr_dpi }} dpi: {{ ref.bbox_ocr_pixels }}</p>{% endif %}
+<blockquote>{{ ref.quote }}</blockquote>
+{% if ref.image %}<a href="{{ ref.image }}"><img loading="lazy" src="{{ ref.image }}" alt="Фрагмент исходной страницы для {{ ref.id }}"></a><p class="muted">{{ ref.note }} <a href="{{ ref.full_page }}">Страница целиком без рамок</a>.</p>{% endif %}
+{% endfor %}
+{% if r.message_file %}<p>Evidence и SourceVersion отсутствуют; источник — сохранённое сообщение в <a href="frozen/database.json">database.json#/messages</a>. Страница/цитата PDF неприменимы.</p>{% endif %}{% if not r.refs and not r.source_file and not r.message_file %}Самостоятельного источника нет; проверьте заявленные feature_ids и условия выше.{% endif %}
+</td></tr>
+<tr><th>Изображение контекста</th><td>{% for img in r.original_images|default([]) %}<p>Оригинальное изображение непосредственно из закреплённого HTML, без OCR: <code>{{ img.span }}</code>; SHA-256 <code>{{ img.sha256 }}</code>.</p><a href="{{ img.image }}"><img loading="lazy" src="{{ img.image }}" alt="Оригинальный встроенный график из сохранённого HTML"></a>{% endfor %}{% if r.image %}<a href="{{ r.image }}"><img loading="lazy" src="{{ r.image }}" alt="Контекст {{ r.id }}"></a>{% endif %}{% for img in r.images|default([]) %}<a href="{{ img }}"><img loading="lazy" src="{{ img }}" alt="Производное изображение HTML {{ r.id }}"></a>{% endfor %}{% if not r.image and not r.images %}{{ "У пользовательского сообщения нет исходной страницы PDF." if r.origin == "user_declared" else "См. изображения у цитат выше; для проверки полноты результата исходные файлы открываются по ссылкам." }}{% endif %}</td></tr>
+<tr><th>Числа, единицы, период, оговорки</th><td>{% if r.numbers %}<p>Автоматически найденные числовые строки (без семантического подтверждения): {{ r.numbers|join('; ') }}.</p>{% endif %}{% if r.group == 'Новости отдельно от исторического G1' %}<p>Сверьте период 13–19 октября, даты колонок, индексы (%) против уровней цены (руб./л), средневзвешенность, исключение четырёх регионов, знаки и «...» (нет наблюдения). Для ЦБ — номера приказов, дата и оговорки сносок 1–4.</p>{% elif r.origin == 'user_declared' %}<p>Горизонт «до конца 2027» заявлен пользователем. Численная ставка, объём и договор не представлены.</p>{% elif r.feature_ids and not r.claim_id %}<p>Raw 1.0 — флаг продукта, не сумма и не ставка; ОКВЭД — код, не измеренная структура расходов. Период и available_at смотрите в точном Feature выше.</p>{% else %}<p>Сверьте знак, проценты, г/г против конца периода, факт против прогноза. Для обновления прогноза отдельно сопоставьте прежние 13,5% и новые 14,0% на конец 2026; 12,0% — конец 2027, не ставка договора. Дату публикации не подставляйте в неизвестный available_at.</p>{% endif %}{% if r.published_at %}<p>published_at={{ r.published_at }}; available_at={{ r.available_at }}</p>{% endif %}{% for gap in r.gaps|default([]) %}<p class="warning">{{ gap }}</p>{% endfor %}</td></tr>
+<tr><th>Вопрос проверяющему</th><td>{{ r.question }}</td></tr>
+<tr><th>Решение человека</th><td><label>Решение <select data-decision="{{ r.id }}"><option value=""></option><option>подтверждено</option><option>ошибка</option><option>недостаточно данных</option></select></label><p>Пусто до вашей проверки.</p></td></tr>
+<tr><th>Комментарий человека</th><td><textarea data-comment="{{ r.id }}" aria-label="Комментарий к {{ r.id }}"></textarea></td></tr>
+</table>
+</article>
+{% endfor %}
+</section>
+<section id="decisions" class="panel">
+<h2>Сохранить решения отдельно</h2>
+<p>Страница не изменяет API, Evidence, SourceVersion или human_verified. Импорт/экспорт работает локально, сетевых запросов нет. Незавершённую проверку тоже можно сохранить.</p>
+<label>Проверяющий <input id="reviewer" autocomplete="off"></label><br>
+<label>Дата проверки <input id="reviewed-at" type="date"></label><br>
+<button type="button" id="export">Скачать решения JSON</button>
+<label>Загрузить ранее сохранённые решения <input id="import" type="file" accept="application/json,.json"></label>
+<p id="status" role="status"></p>
+<p><a href="decisions-template.json">Пустой шаблон для внешнего редактора</a>. Для автоматической проверки формата:</p>
+<pre>python -m scripts.review_g1 --output artifacts/integration/human-review --decisions artifacts/integration/decisions-reviewer.json
+# Добавьте --require-complete для проверки полноты заполнения.</pre>
+<p>После проверки передайте JSON команде с packet_id. Принятое человеком решение записывается отдельной рецензией с автором, датой, claim/Evidence ID и SHA пакета. Исправления источника требуют новой версии; исходные доказательства и ответы не переписываются. Файл решений сам по себе не даёт human_verified и не заменяет независимую разметку.</p>
+</section>
+</main>
+<script id="editor-data" type="application/json">{{ editor_json|safe }}</script>
+<script>
+'use strict';
+const data=JSON.parse(document.getElementById('editor-data').textContent);
+const status=document.getElementById('status');
+const decisions=new Map(Array.from(document.querySelectorAll('[data-decision]'),el=>[el.dataset.decision,el]));
+const comments=new Map(Array.from(document.querySelectorAll('[data-comment]'),el=>[el.dataset.comment,el]));
+document.getElementById('export').addEventListener('click',()=>{
+  data.reviewer=document.getElementById('reviewer').value.trim();data.reviewed_at=document.getElementById('reviewed-at').value;
+  data.rows.forEach(r=>{r.decision=decisions.get(r.id).value;r.comment=comments.get(r.id).value;});
+  const answered=data.rows.filter(r=>r.decision).length;
+  if(answered&&(!data.reviewer||!data.reviewed_at)){status.textContent='Укажите проверяющего и дату.';return;}
+  const url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)+'\n'],{type:'application/json'}));
+  const a=document.createElement('a');a.href=url;a.download='g1-decisions-'+data.packet_id.slice(0,12)+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+  status.textContent='Экспортировано решений: '+answered+' / '+data.rows.length+'. Сохраните скачанный файл отдельно от пакета.';
+});
+document.getElementById('import').addEventListener('change',async event=>{
+ try{
+  const file=event.target.files[0];if(!file)return;const saved=JSON.parse(await file.text());
+  if(saved.packet_id!==data.packet_id||!Array.isArray(saved.rows)||saved.rows.length!==data.rows.length)throw Error('Другой пакет или неполный набор строк.');
+  const ids=new Set();saved.rows.forEach(r=>{if(!decisions.has(r.id)||ids.has(r.id)||!['','подтверждено','ошибка','недостаточно данных'].includes(r.decision)||typeof r.comment!=='string')throw Error('Неверные ID/решения.');ids.add(r.id);});
+  document.getElementById('reviewer').value=typeof saved.reviewer==='string'?saved.reviewer:'';document.getElementById('reviewed-at').value=typeof saved.reviewed_at==='string'?saved.reviewed_at:'';
+  saved.rows.forEach(r=>{decisions.get(r.id).value=r.decision;comments.get(r.id).value=r.comment;});status.textContent='Решения загружены; исходные доказательства не изменены.';
+ }catch(error){status.textContent='Не удалось загрузить: '+error.message;}
+});
+</script>
+</html>

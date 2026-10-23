@@ -1,0 +1,16 @@
+{
+  "id": "case-rate-20260911",
+  "domain": "case",
+  "title": "Исторический G1: решение о сохранении ключевой ставки, 11.09.2026",
+  "event_at": "2026-09-11T00:00:00+03:00",
+  "event_time_source": "event",
+  "available_at": null,
+  "filename": "ALFA-Macro_Insights-Policy_Rate_11Sep.pdf",
+  "event_span": "agent_1",
+  "topics": ["rates"],
+  "limitations": [
+    "Дата события известна с точностью до дня; время 00:00 MSK условное начало дня, не время решения",
+    "Решение передано по банковскому отчету, не выдано за актуальную новость ЦБ",
+    "agent_page_checked не является human_verified; available_at неизвестен"
+  ]
+}

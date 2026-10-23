@@ -1,0 +1,10 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>{{ doc.title }}</title>
+<style>body{font:18px system-ui;max-width:1000px;margin:2rem auto;padding:1rem}pre{white-space:pre-wrap;overflow-wrap:anywhere}blockquote{border-left:4px solid #d22;padding:1rem;background:#f4f4f4}</style>
+<a href="/">Аналитика</a><h1>{{ doc.title }}</h1>
+<p>{{ doc.publisher }} · {{ doc.domain }} · опубликовано: {{ doc.published_at or 'неизвестно' }} · доступно: {{ doc.available_at or 'неизвестно' }}</p>
+{% if doc.url %}<a href="{{ doc.url }}" target="_blank" rel="noopener noreferrer">Исходная статья</a>{% endif %}
+{% if doc.publisher == 'Alfa-Research' %}<a href="/api/v1/sources/{{ doc.id }}/asset{% if evidence and evidence.page %}#page={{ evidence.page }}{% endif %}">Исходный PDF{% if evidence %}, страница {{ evidence.page }}{% endif %}</a>{% endif %}
+<a href="/api/v1/sources/{{ doc.id }}/provenance">Hash и происхождение</a>
+{% if evidence %}<h2>Сохранённый фрагмент</h2><p>{{ evidence.id }} · page={{ evidence.page or '—' }} · {{ evidence.span }} · {{ evidence.value_kind }} · {{ evidence.quality }}</p>
+<blockquote>{{ evidence.quote }}</blockquote><p>Наличие цитаты не подтверждает её применимость. Unverified — не человеческая сверка.</p>{% endif %}
+<h2>Сохранённый текст</h2><pre>{{ doc.text }}</pre></html>
